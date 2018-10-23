@@ -67,6 +67,7 @@ public class SchedulingConfig {
      * <p>
      * 每天凌晨 1 点 开始执行任务
      */
+//    @Scheduled(cron = "0/5 * * * * ?")
     @Scheduled(cron = "0 0/10 * * * ?")
     public void cronScheduled() {
 

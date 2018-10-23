@@ -28,7 +28,6 @@ public class TopInfoTask {
 
     public static final String[] COMMANDS = {CPU_MEM_SHELL};
 
-
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     public Map<String, BigDecimal> exec(Map<String, String> param) {
@@ -43,7 +42,7 @@ public class TopInfoTask {
 
             //处理CPU Cpu(s): 10.8%us,  0.9%sy,  0.0%ni, 87.6%id,  0.7%wa,  0.0%hi,  0.0%si,  0.0%st
             if (line.contains("CPU(S):")) {
-                String cpuStr = "CPU 用户使用占有率:";
+                String cpuStr = "CPU 占有率:";
                 try {
                     String cpuusagerate = line.split(":")[1].split(",")[0].replace("US", "");
                     cpuStr += cpuusagerate;
@@ -66,7 +65,7 @@ public class TopInfoTask {
                             .replace("FREE", "空闲")
                             .replace("BUFFERS", "缓存");
                     String data[] = line.split(":")[1].split("\\s+");
-                    result.put("memusagerate", CommonUtils.toBigDecimal(data[1]).divide(CommonUtils.toBigDecimal(data[3]) , 2, RoundingMode.HALF_UP));//.divideToIntegralValue(CommonUtils.toBigDecimal(data[2])));
+                    result.put("memusagerate", CommonUtils.toBigDecimal(data[1]).divide(CommonUtils.toBigDecimal(data[3]), 2, RoundingMode.HALF_UP));//.divideToIntegralValue(CommonUtils.toBigDecimal(data[2])));
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -78,7 +77,6 @@ public class TopInfoTask {
 
             }
 
-            logger.info("result : {}", buffer.toString());
         }
         return result;
     }

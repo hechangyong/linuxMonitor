@@ -33,7 +33,7 @@ public class LinuxOperation {
      * @return isConnect
      * @throws JSchException JSchException
      */
-    public  Session connect(String user, String passwd, String host) {
+    public Session connect(String user, String passwd, String host) {
         JSch jsch = new JSch();
         Session session;
         logger.info("connect user: {}, host: {}", user, host);
@@ -47,7 +47,7 @@ public class LinuxOperation {
             session.connect();
         } catch (JSchException e) {
             e.printStackTrace();
-            logger.error("{} connect error !", host);
+            logger.error("{} connect error !", host, e);
             return null;
         }
         return session;
@@ -55,9 +55,10 @@ public class LinuxOperation {
 
     /**
      * 关闭session
+     *
      * @param session
      */
-    public void closeSession(Session session){
+    public void closeSession(Session session) {
         logger.info("closeSession : {}", session);
         if (session != null) {
             session.disconnect();
@@ -67,10 +68,11 @@ public class LinuxOperation {
     /**
      * 远程连接Linux 服务器 执行相关的命令
      * session 没有关闭， 调用方 调用完成必须要手动关闭
+     *
      * @param commands 执行的脚本
      * @return 最终命令返回信息
      */
-    public  Map<String, String> runDistanceShell(Session session, String[] commands) {
+    public Map<String, String> runDistanceShell(Session session, String[] commands) {
         if (session == null) {
             return null;
         }
@@ -105,6 +107,7 @@ public class LinuxOperation {
             }
         } catch (IOException | JSchException e) {
             e.printStackTrace();
+            logger.error("执行脚本出现异常：{}", e.getMessage(), e);
         } finally {
             try {
                 if (reader != null) {
