@@ -20,8 +20,8 @@ public class HelloController {
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String index() {
-        logger.info("helloserver hello: "+ connectUserInfoList.getMapConnectUserInfo());
-        return "Hello world";
+        logger.info("helloserver hello: "+ connectUserInfoList.getListmap());
+        return "connectUserInfoList"+connectUserInfoList.getListmap();
     }
 
 }

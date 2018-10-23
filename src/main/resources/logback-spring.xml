@@ -2,7 +2,7 @@
 <configuration debug="true">
 
     <springProperty scope="context" name="springAppName" source="spring.application.name"/>
-    <property name="LOG_ROOT_DIR" value="/var/logs"/>
+    <property name="LOG_ROOT_DIR" value="/minshenglife/jar-project/monitor/logs"/>
     <property name="LOG_FILE" value="${LOG_ROOT_DIR}/logback.log"/>
     <property name="LOGSTASH_HOST" value="${LOGSTASH_HOST:-10.0.158.209}"/>
     <property name="LOGSTASH_PORT" value="${LOGSTASH_PORT:-5044}"/>

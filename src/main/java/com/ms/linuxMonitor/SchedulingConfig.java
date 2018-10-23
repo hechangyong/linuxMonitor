@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -66,17 +67,15 @@ public class SchedulingConfig {
      * <p>
      * 每天凌晨 1 点 开始执行任务
      */
-    @Scheduled(cron = "0/5 * * * * ?")
+    @Scheduled(cron = "0 0/10 * * * ?")
     public void cronScheduled() {
 
         Map<String, ConnectUserInfo> map = connectUserInfoList.getMapConnectUserInfo();
-
         for (String host : map.keySet()) {
-
+            logger.info("获取{}相关信息开始", host);
             taskManager(map.get(host));
+            logger.info("监控{}结束", host);
         }
-
-
     }
 
     public void taskManager(ConnectUserInfo connectUserInfo) {
@@ -84,9 +83,11 @@ public class SchedulingConfig {
         try {
             // todo 可以添加配置， 此机器是否需要监控
             session = linuxOperation.connect(connectUserInfo.getName(), connectUserInfo.getPassword(), connectUserInfo.getHost());
-//            topInfoTask.exec(getCommandResult(session, TopInfoTask.COMMANDS));
+            Map<String, BigDecimal> topResult = topInfoTask.exec(getCommandResult(session, TopInfoTask.COMMANDS));
             Map<String, String> filesSystemResult = filesSystemTask.exec(getCommandResult(session, FilesSystemTask.COMMANDS));
+
             alarmTask.checkValue4diskusage(connectUserInfo.getHost(), filesSystemResult);
+            alarmTask.checkValue4cpuResult(connectUserInfo.getHost(), topResult);
         } catch (Exception e) {
             logger.error("e:{}", e.getMessage(), e);
         } finally {
@@ -95,7 +96,6 @@ public class SchedulingConfig {
 
 
     }
-
 
 
     private Map<String, String> getCommandResult(Session session, String[] commands) {
