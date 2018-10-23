@@ -1,0 +1,27 @@
+connectuserinfolist:
+   listmap:
+      - name: root
+        host: 172.16.0.5
+        password: '#mSQingc10uD2ol8o3t0mcat_ce'
+      - name: root
+        host: 172.16.0.6
+        password: '#mSQingc10uD2ol8o3mysq1_ce'
+
+
+threshold:
+  diskusagerate: 0.4
+  cpuusagerate: 0.8
+  memusagerate: 0.8
+
+
+
+
+mail:
+  sendto:
+    hezhangyong@minshenglife.com,wanlian@minshenglife.com
+  mailHost:
+    smtp.minshenglife.com
+  sendFrom:
+    hezhangyong@minshenglife.com
+  sendFromPass:
+    HCY1234
