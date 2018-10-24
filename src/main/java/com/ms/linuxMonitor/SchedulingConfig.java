@@ -15,9 +15,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 /**

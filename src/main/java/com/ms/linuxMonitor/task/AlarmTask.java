@@ -101,7 +101,7 @@ public class AlarmTask {
                     host, currentMEMData, memusagerate);
             sb.append("************************").append("\r\n");
             sb.append("    host     : " + host).append("\r\n");
-            sb.append("    CPU使用率 : " + currentMEMData).append("\r\n");
+            sb.append("    MEM使用率 : " + currentMEMData).append("\r\n");
             sb.append("    告警值阈值 : " + memusagerate).append("\r\n");
             sb.append("************************").append("\r\n");
         }
